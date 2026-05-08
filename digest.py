@@ -41,23 +41,37 @@ ANTHROPIC_KEY    = os.environ.get("ANTHROPIC_API_KEY", "")
 
 # ── Inoreader ────────────────────────────────────────────────────────────────
 
-def fetch_inoreader(max_chars=6000):
+def fetch_inoreader(max_chars=15000):
     resp = requests.get(INOREADER_URL, timeout=30)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
 
     articles = []
-    for a_tag in soup.find_all("a", class_="article_magazine_title_link"):
-        title = a_tag.get_text(strip=True)
-        url   = a_tag.get("href", "")
-        # Source name is in a sibling feed_link anchor
-        parent   = a_tag.find_parent()
-        source   = ""
-        if parent:
-            feed_link = parent.find("a", class_="feed_link")
-            if feed_link:
-                source = feed_link.get_text(strip=True)
-        articles.append(f"TITEL: {title}\nURL: {url}\nQUELLE: {source}")
+    wrappers = soup.find_all("div", class_="article_magazine_content_wraper")
+    for wrapper in wrappers:
+        a_tag = wrapper.find("a", class_="article_magazine_title_link")
+        if not a_tag:
+            continue
+        title  = a_tag.get_text(strip=True)
+        url    = a_tag.get("href", "")
+        source = ""
+        feed_link = wrapper.find("a", class_="feed_link")
+        if feed_link:
+            source = feed_link.get_text(strip=True)
+        snippet = ""
+        content_div = wrapper.find("div", class_="article_magazine_content")
+        if content_div:
+            snippet = content_div.get_text(strip=True)
+        age = ""
+        date_div = wrapper.find("div", class_="article_date_short")
+        if date_div:
+            age = date_div.get_text(strip=True)
+        parts = [f"TITEL: {title}", f"URL: {url}", f"QUELLE: {source}"]
+        if age:
+            parts.append(f"ALTER: {age}")
+        if snippet:
+            parts.append(f"INHALT: {snippet}")
+        articles.append("\n".join(parts))
 
     content = "\n---\n".join(articles)
     return content[:max_chars]

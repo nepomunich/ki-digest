@@ -151,6 +151,9 @@ def fetch_newsletters(max_results=20):
 
 # ── Claude: Digest verfassen ─────────────────────────────────────────────────
 
+_GUIDELINES_FILE = Path(__file__).parent / "editorial_guidelines.md"
+_EDITORIAL_GUIDELINES = _GUIDELINES_FILE.read_text() if _GUIDELINES_FILE.exists() else ""
+
 SYSTEM_PROMPT = """Du bist Redaktionsassistent für Bernd Oswald, Projektmanager KI im Journalismus.
 Deine Aufgabe: aus Rohmaterial einen präzisen deutschen E-Mail-Digest erstellen.
 
@@ -161,7 +164,9 @@ Stilregeln:
 - Bei KI-News: WER, WAS, WIE beantworten
 - Jeder Eintrag endet mit → <a href="[URL]">[Quelle]</a>
 - Abschnitte ohne relevante Inhalte komplett weglassen
-- Maximal 3 Einträge pro Abschnitt"""
+- Maximal 3 Einträge pro Abschnitt
+
+{guidelines}""".format(guidelines=_EDITORIAL_GUIDELINES)
 
 
 def compose_digest(inoreader_text, newsletter_text):

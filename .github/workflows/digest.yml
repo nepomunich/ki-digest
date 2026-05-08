@@ -2,7 +2,7 @@ name: KI-Journalismus Digest
 
 on:
   schedule:
-    - cron: '0 6 * * *'  # 6:00 UTC = 8:00 CEST (summer) / change to '0 7 * * *' Nov-Mar
+    - cron: '45 6 * * *'  # 6:45 UTC = 8:45 CEST (summer) / change to '45 7 * * *' Nov-Mar
   workflow_dispatch:       # allows manual trigger from GitHub Actions tab
 
 jobs:

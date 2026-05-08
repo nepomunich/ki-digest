@@ -41,7 +41,20 @@ ANTHROPIC_KEY    = os.environ.get("ANTHROPIC_API_KEY", "")
 
 # ── Inoreader ────────────────────────────────────────────────────────────────
 
-def fetch_inoreader(max_chars=15000):
+def _fetch_full_text(url, snippet, max_chars=3000):
+    try:
+        import trafilatura
+        headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"}
+        r = requests.get(url, headers=headers, timeout=15)
+        text = trafilatura.extract(r.text, include_comments=False, include_tables=False)
+        if text and len(text) > len(snippet) + 100:
+            return text[:max_chars]
+    except Exception:
+        pass
+    return snippet
+
+
+def fetch_inoreader(max_chars=40000):
     resp = requests.get(INOREADER_URL, timeout=30)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
@@ -66,11 +79,11 @@ def fetch_inoreader(max_chars=15000):
         date_div = wrapper.find("div", class_="article_date_short")
         if date_div:
             age = date_div.get_text(strip=True)
+        full_text = _fetch_full_text(url, snippet)
         parts = [f"TITEL: {title}", f"URL: {url}", f"QUELLE: {source}"]
         if age:
             parts.append(f"ALTER: {age}")
-        if snippet:
-            parts.append(f"INHALT: {snippet}")
+        parts.append(f"INHALT: {full_text}")
         articles.append("\n".join(parts))
 
     content = "\n---\n".join(articles)
@@ -188,7 +201,7 @@ Gib ausschließlich den HTML-Body zurück (keine html/body/head-Tags)."""
     client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
     response = client.messages.create(
         model=CLAUDE_MODEL,
-        max_tokens=2000,
+        max_tokens=3000,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user_prompt}],
     )

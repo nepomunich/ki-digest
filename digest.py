@@ -105,7 +105,7 @@ def decode_str(value):
 def fetch_newsletters(max_results=20):
     mail = imaplib.IMAP4_SSL("imap.gmail.com")
     mail.login(GMAIL_ADDRESS, GMAIL_APP_PW)
-    mail.select("inbox")
+    mail.select('"AI News"')
 
     yesterday = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%d-%b-%Y")
     status, messages = mail.search(None, f'SINCE "{yesterday}"')
@@ -121,25 +121,25 @@ def fetch_newsletters(max_results=20):
             subject = decode_str(msg.get("Subject", ""))
             sender  = decode_str(msg.get("From", ""))
 
-            snippet = ""
+            body = ""
             if msg.is_multipart():
                 for part in msg.walk():
                     if part.get_content_type() == "text/plain":
                         try:
-                            snippet = part.get_payload(decode=True).decode("utf-8", errors="replace")
+                            body = part.get_payload(decode=True).decode("utf-8", errors="replace")
                         except Exception:
                             pass
                         break
             else:
                 try:
-                    snippet = msg.get_payload(decode=True).decode("utf-8", errors="replace")
+                    body = msg.get_payload(decode=True).decode("utf-8", errors="replace")
                 except Exception:
                     pass
 
             items.append(
                 f"VON: {sender}\n"
                 f"BETREFF: {subject}\n"
-                f"INHALT: {snippet[:600]}"
+                f"INHALT: {body[:3000]}"
             )
         except Exception as e:
             print(f"  Fehler bei Nachricht {num}: {e}", flush=True)

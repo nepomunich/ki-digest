@@ -21,7 +21,7 @@ import anthropic
 # ── Konfiguration ────────────────────────────────────────────────────────────
 
 INOREADER_URL = "https://www.inoreader.com/stream/user/1004617329/tag/KI/view/html?cs=m"
-RECIPIENT     = "post@berndoswald.de"
+RECIPIENT     = "aiformedia@br.de"
 CLAUDE_MODEL  = "claude-sonnet-4-6"
 
 # Credentials aus .env laden (Fallback für lokale Ausführung)

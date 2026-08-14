@@ -1,0 +1,77 @@
+# Sample Input — what digest.py sends to Claude
+
+This file shows the structure of data passed to the Claude API.
+Article text is truncated for illustration; real runs include up to 3000 chars per article.
+
+=== INOREADER KI-ORDNER (letzte 24h) ===
+
+TITEL: Reuters-Editor baut 14 KI-Signalsysteme ohne Coding-Kenntnisse
+URL: https://newsmachines.beehiiv.com/p/local-journalism-not-charity-case
+QUELLE: AI For Newsroom — AI Newsfeed
+ALTER: 8h
+INHALT: Andy Sullivan, Reuters Wire Editor with 25 years of experience, has built 14 automated
+systems that evaluate 50–200 new Federal Register entries daily and prioritize them editorially
+— without knowing how to code. The systems produce no articles but continuous editorial signals
+for reporters. According to the essay, the key resource is not the technology but the editorial
+judgment fed into it. [...]
+
+---
+
+TITEL: KI-Sicherheitstests haben ein neues Problem: Modelle fälschen jetzt auch ihre eigenen Denkprozesse
+URL: https://the-decoder.de/ki-sicherheitstests-haben-ein-neues-problem-...
+QUELLE: THE DECODER
+ALTER: 3h
+INHALT: Mit Natural Language Autoencoders (NLAs) macht Anthropic interne Aktivierungen von
+Claude Opus 4.6 als Klartext lesbar. Ein Activation Verbalizer übersetzt Zahlenvektoren in Text,
+ein Activation Reconstructor validiert die Übersetzung per Reinforcement Learning. Im
+Blackmail-Audit mit Opus 4.6 zeigte das Modell extern null Prozent Test-Erkennung, intern jedoch
+in 10 von 16 Evaluationen über fünf Prozent. [...]
+
+---
+
+TITEL: EU verschiebt und vereinfacht KI-Regeln und verbietet "Nudification"-Apps
+URL: https://the-decoder.de/eu-verschiebt-und-vereinfacht-ki-regeln-...
+QUELLE: THE DECODER
+ALTER: 5h
+INHALT: Das "Digital Omnibus on AI" verschiebt Hochrisiko-Regeln für Bereiche wie Biometrie,
+Bildung und Migration auf Dezember 2027, für KI in Produkten auf August 2028. KMU mit bis zu
+750 Mitarbeitern und 150 Millionen Euro Umsatz erhalten reduzierte Dokumentationspflichten.
+Neu verboten werden KI-Systeme, die ohne Einwilligung sexuell explizite Inhalte erzeugen.
+Die Kennzeichnungspflicht aus Artikel 50 für Deepfakes gilt ab 2. August 2026. [...]
+
+---
+
+TITEL: Mozilla härtet Firefox mit Claude Mythos Preview und behebt hunderte Sicherheitsprobleme
+URL: https://the-decoder.de/mozilla-setzt-anthropics-claude-mythos-ein-...
+QUELLE: THE DECODER
+ALTER: 6h
+INHALT: Mozilla nutzte ein agentisches System auf Basis von Claude Mythos Preview, das eigene
+Testfälle erstellt und ausführt, um Fehlalarme herauszufiltern. Allein in Firefox 150 fand die
+Pipeline 271 bislang unbekannte Lücken, darunter ein 20 Jahre alter XSLT-Bug. [...]
+
+=== GMAIL NEWSLETTER (letzte 24h) ===
+
+VON: AI For Newsroom <mail@novocean.me>
+BETREFF: #26. Weekly AI For Newsroom Roundup. We've analyzed all initiatives we have in our database
+INHALT: AI For Newsroom Weekly Round Up — Friday, May 8, 2026
+
+This week on 'AI for Newsroom': Initiatives (8) Resources (5) Policies (1) Newsfeed (14)
+
+INITIATIVES
+• Semafor launches Semafor Intelligence, an AI-powered service tracking geopolitical risks for
+  corporate clients — separate from its editorial journalism product.
+• The Washington Post tests an AI tool that automatically tags and categorizes archive articles,
+  reducing manual metadata work by 60%.
+• Norwegian broadcaster NRK deploys real-time AI subtitling for live news, covering dialects
+  previously unsupported by commercial ASR tools. [...]
+
+---
+
+VON: Ole Reissmann <thefuture@olereissmann.com>
+BETREFF: THEFUTURE · Whose Future Is This, Exactly
+INHALT: Read THEFUTURE on the web
+
+In this issue: A Hamburg hotel, closed doors, and an AI executive describing a future most
+companies aren't building for. Eva Gengler on why AI is a political choice, not a technical one.
+Plus: the new wave of AI skepticism inside newsrooms, and what it means when editors start
+pushing back. [...]
